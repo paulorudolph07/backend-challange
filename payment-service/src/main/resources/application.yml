@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: payment-service
+  datasource:
+    url: jdbc:mysql://localhost:3306/acmedb
+    #url: jdbc:mysql://mysql-standalone:3306/acmedb
+    username: acme
+    password: acme123
+    driverClassName: com.mysql.jdbc.Driver
+  jpa:
+    database: MYSQL
+    show-sql: true
+    properties:
+      hibernate:
+        dalect: org.hibernate.dialect.MySQL5InnoDBDialect
+    hibernate:
+      ddl-auto: update
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    baseline-version: 0
+    validate-on-migrate: false
+  devtools:
+    remote.secret: thisismysecret
+server:
+  port: 9092
+orderserver:
+  hostname: http://localhost:9091/api/order
