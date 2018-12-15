@@ -44,11 +44,6 @@
 			<scope>test</scope>
 		</dependency>
 		
-		<dependency>
-			<groupId>com.invillia.acme</groupId>
-			<artifactId>acme-web-config</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 
 	<build>

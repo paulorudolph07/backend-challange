@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Entity
@@ -19,12 +20,14 @@ public class Payment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "Credit Card Number required")
+	@NotEmpty(message = "Credit Card Number should not be empty")
+	@NotNull(message = "Credit Card Number required")
 	private String creditCardNumber;
 	private LocalDate paymentDate;
 	@ManyToOne
 	private PaymentStatus status;
 	@Positive(message = "Order Id must be positive")
+	@NotNull(message = "Order Id required")
 	private Long orderId;
 	public String getCreditCardNumber() {
 		return creditCardNumber;

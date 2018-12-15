@@ -2,8 +2,13 @@ package com.invillia.acme.orderservice.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import javax.validation.Validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +25,7 @@ import com.invillia.acme.orderservice.repository.IOrderStatusRepository;
 
 @Service
 @Transactional
+@Validated
 public class OrderService {
 	
 	@Autowired
@@ -34,7 +40,21 @@ public class OrderService {
 	@Autowired
 	private IOrderItemRepository orderItemRepo;
 
-	public Order save(@Validated Order order) {
+	@Autowired
+	private Validator validator;
+	
+	private void validateOrderItem(Set<OrderItem> items) {
+		items.forEach(i -> {
+			Set<ConstraintViolation<OrderItem>> violations = validator.validate(i);
+			if(!violations.isEmpty())
+				throw new ConstraintViolationException(violations);
+		});
+	}
+
+	@Transactional(rollbackFor = {ConstraintViolationException.class})
+	public Order save(@Valid Order order) {
+		validateOrderItem(order.getItems());
+		
 		order.setStatus(orderStatusRepo.findById(1).get());
 		order.setConfirmationDate(LocalDate.now());
 		if(order.getItems() != null && !order.getItems().isEmpty())

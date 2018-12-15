@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames="name", name="uk_provider_name")})
@@ -17,9 +18,11 @@ public class Provider {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "Name required")
+	@NotEmpty(message = "Name should not be empty")
+	@NotNull(message = "Name required")
 	private String name;
-	@NotEmpty(message = "Address required")
+	@NotEmpty(message = "Address should not be empty")
+	@NotNull(message = "Address required")
 	private String address;
 	public Long getId() {
 		return id;

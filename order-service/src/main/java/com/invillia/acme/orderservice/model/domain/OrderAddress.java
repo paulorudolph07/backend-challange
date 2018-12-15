@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table
@@ -16,15 +17,20 @@ public class OrderAddress {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message="Street required")
+	@NotEmpty(message="Street should not be empty")
+	@NotNull(message = "Street required")
 	private String street;
-	@NotEmpty(message="City required")
+	@NotEmpty(message="City should not be empty")
+	@NotNull(message = "City required")
 	private String city;
-	@NotEmpty(message="State required")
+	@NotEmpty(message="State should not be empty")
+	@NotNull(message = "State required")
 	private String state;
-	@NotEmpty(message="ZipCode required")
+	@NotEmpty(message="ZipCode should not be empty")
+	@NotNull(message = "ZipCode required")
 	private String zipCode;
-	@NotEmpty(message="Contry required")
+	@NotEmpty(message="Contry should not be empty")
+	@NotNull(message = "Contry required")
 	private String country;
 	public Long getId() {
 		return id;

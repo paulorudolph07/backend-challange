@@ -12,7 +12,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -23,12 +25,17 @@ public class OrderItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@NotEmpty(message = "Description required")
+	@NotEmpty(message = "Description should not be empty")
+	@NotNull(message = "Description required")
 	private String description;
 	@Digits(integer = 10, fraction = 2)
+	@NotNull(message = "Unit Price required")
 	private BigDecimal unitPrice;
 	@Positive(message = "Quantity must be positive")
+	@NotNull(message = "Quantity required")
 	private Integer quantity;
+	@PositiveOrZero(message = "Position must be zero or positive")
+	@NotNull(message = "Position required")
 	private Integer position;
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
