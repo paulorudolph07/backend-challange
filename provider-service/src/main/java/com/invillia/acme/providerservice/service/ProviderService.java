@@ -3,6 +3,7 @@ package com.invillia.acme.providerservice.service;
 import java.util.Collection;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +15,13 @@ import com.invillia.acme.providerservice.repository.IProviderRepository;
 
 @Service
 @Transactional
+@Validated
 public class ProviderService {
 
 	@Autowired
 	private IProviderRepository providerRepo;
 	
-	public Provider save(@Validated Provider provider) {
+	public Provider save(@Valid Provider provider) {
 		return providerRepo.save(provider);
 	}
 	
@@ -28,8 +30,8 @@ public class ProviderService {
 		return providerRepo.findById(id).orElseThrow(() -> new EntityNotFoundException("Provider not found to id " + id));
 	}
 	
-	public Collection<Provider> findByNameAndAddress(String name, String address) {
-		return providerRepo.findByNameAndAddress(name, address);
+	public Collection<Provider> findByName(String name) {
+		return providerRepo.findByName(name.toLowerCase());
 	}
 	
 }

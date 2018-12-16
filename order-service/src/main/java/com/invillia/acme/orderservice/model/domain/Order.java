@@ -6,14 +6,15 @@ import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "acme_order")
@@ -25,15 +26,22 @@ public class Order {
 	private LocalDate confirmationDate;
 	@ManyToOne
 	private OrderStatus status;
-	@OneToOne(cascade = CascadeType.ALL)
+	@Embedded
+	@NotNull(message = "Address required")
 	private OrderAddress address;
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "order", orphanRemoval = false)
 	private Set<OrderItem> items;
+	
+	public Order() {
+		super();
+	}
+	
+	public Order(OrderAddress address) {
+		this.address = address;
+	}
+	
 	public Long getId() {
 		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 	public LocalDate getConfirmationDate() {
 		return confirmationDate;

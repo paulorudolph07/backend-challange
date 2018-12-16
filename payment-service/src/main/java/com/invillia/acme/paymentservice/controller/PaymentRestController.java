@@ -13,7 +13,7 @@ import com.invillia.acme.paymentservice.service.PaymentService;
 
 @RestController
 @RequestMapping(value = "/api/payment", produces = MediaType.APPLICATION_JSON_VALUE)
-public class PaymentController {
+public class PaymentRestController {
 
 	@Autowired
 	private PaymentService paymentSvc;

@@ -16,7 +16,7 @@ import com.invillia.acme.orderservice.service.OrderService;
 
 @RestController
 @RequestMapping(value = "/api/order", produces = MediaType.APPLICATION_JSON_VALUE)
-public class OrderController {
+public class OrderRestController {
 	
 	@Autowired
 	private OrderService orderSvc;
@@ -36,8 +36,8 @@ public class OrderController {
 		return ResponseEntity.ok().body(orderSvc.findAllByStatusId(id));
 	}
 	
-	@PostMapping(value = "/pay-order/{id}")
-	public ResponseEntity<Order> payOrder(@PathVariable Long id) {
+	@PostMapping(value = "/pay/{id}")
+	public ResponseEntity<Order> pay(@PathVariable Long id) {
 		return ResponseEntity.ok(orderSvc.payOrder(id));
 	}
 	

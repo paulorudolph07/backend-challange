@@ -18,7 +18,7 @@ public class OrderRestClient {
 	
 	public String payOrder(Long orderId) {
 		 ResponseEntity<?> response = orderRestService.exchange(
-				 env.getProperty("orderserver.hostname") + "/pay-order/" + orderId,
+				 env.getProperty("orderserver.hostname") + "/pay/" + orderId,
 				 HttpMethod.POST, null, String.class);
 		 return response.getBody().toString();
 	}

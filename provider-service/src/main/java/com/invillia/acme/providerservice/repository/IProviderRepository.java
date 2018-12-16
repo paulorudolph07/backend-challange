@@ -11,7 +11,7 @@ import com.invillia.acme.providerservice.model.domain.Provider;
 @Repository
 public interface IProviderRepository extends CrudRepository<Provider, Long> {
 
-	@Query(value = "select p from Provider p where p.name like :name% or p.address like :address%")
-	Collection<Provider> findByNameAndAddress(String name, String address);
+	@Query(value = "select p from Provider p where lower(p.name) like :name%")
+	Collection<Provider> findByName(String name);
 	
 }

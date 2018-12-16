@@ -2,6 +2,7 @@ package com.invillia.acme.providerservice.model.domain;
 
 import java.util.Objects;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,14 +22,21 @@ public class Provider {
 	@NotEmpty(message = "Name should not be empty")
 	@NotNull(message = "Name required")
 	private String name;
-	@NotEmpty(message = "Address should not be empty")
+	@Embedded
 	@NotNull(message = "Address required")
-	private String address;
+	private ProviderAddress address;
+	
+	public Provider() {
+		super();
+	}
+	
+	public Provider(String name, ProviderAddress address) {
+		this.name = name;
+		this.address = address;
+	}
+	
 	public Long getId() {
 		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -36,10 +44,10 @@ public class Provider {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAddress() {
+	public ProviderAddress getAddress() {
 		return address;
 	}
-	public void setAddress(String address) {
+	public void setAddress(ProviderAddress address) {
 		this.address = address;
 	}
 	@Override

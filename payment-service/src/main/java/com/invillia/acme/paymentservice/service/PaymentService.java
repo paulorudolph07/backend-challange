@@ -3,6 +3,7 @@ package com.invillia.acme.paymentservice.service;
 import java.time.LocalDate;
 
 import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import com.invillia.acme.paymentservice.restclient.OrderRestClient;
 
 @Service
 @Transactional
+@Validated
 public class PaymentService {
 	
 	@Autowired
@@ -28,7 +30,7 @@ public class PaymentService {
 	@Autowired
 	private OrderRestClient orderRestClient;
 	
-	public Payment payOrder(@Validated Payment payment) {
+	public Payment payOrder(@Valid Payment payment) {
 		try {
 			orderRestClient.payOrder(payment.getOrderId());
 			return save(payment);
@@ -37,7 +39,7 @@ public class PaymentService {
 		}
 	}
 	
-	public Payment save(@Validated Payment payment) {
+	public Payment save(@Valid Payment payment) {
 		payment.setPaymentDate(LocalDate.now());
 		// Authorized
 		payment.setStatus(paymentStatusRepo.findById(2).get());

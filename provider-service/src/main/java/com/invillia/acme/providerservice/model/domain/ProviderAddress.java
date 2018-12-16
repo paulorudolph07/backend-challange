@@ -1,12 +1,12 @@
-package com.invillia.acme.orderservice.model.domain;
+package com.invillia.acme.providerservice.model.domain;
 
 import javax.persistence.Embeddable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Embeddable
-public class OrderAddress {
-	
+public class ProviderAddress {
+
 	@NotEmpty(message="Street should not be empty")
 	@NotNull(message = "Street required")
 	private String street;
@@ -23,11 +23,11 @@ public class OrderAddress {
 	@NotNull(message = "Contry required")
 	private String country;
 	
-	public OrderAddress() {
+	public ProviderAddress() {
 		super();
 	}
 	
-	public OrderAddress(String street, String city, String state, String zipCode, String country) {
+	public ProviderAddress(String street, String city, String state, String zipCode, String country) {
 		this.street = street;
 		this.city = city;
 		this.state = state;
@@ -65,5 +65,4 @@ public class OrderAddress {
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
 }

@@ -15,7 +15,7 @@ import com.invillia.acme.providerservice.service.ProviderService;
 
 @RestController
 @RequestMapping(value="/api/provider", produces=MediaType.APPLICATION_JSON_VALUE)
-public class ProviderController {
+public class ProviderRestController {
 
 	@Autowired
 	private ProviderService providerSvc;
@@ -30,9 +30,9 @@ public class ProviderController {
 		return ResponseEntity.ok(providerSvc.findById(id));
 	}
 	
-	@GetMapping(value="/{name}/{address}")
-	public ResponseEntity<Iterable<Provider>> findByNameAndAddress(@PathVariable String name, @PathVariable String address) {
-		return ResponseEntity.ok().body(providerSvc.findByNameAndAddress(name, address));
+	@GetMapping(value="/find-by-name/{name}")
+	public ResponseEntity<Iterable<Provider>> findByName(@PathVariable String name) {
+		return ResponseEntity.ok().body(providerSvc.findByName(name));
 	}
 	
 }
