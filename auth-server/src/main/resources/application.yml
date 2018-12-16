@@ -1,0 +1,31 @@
+server:
+  port: 9093
+
+security:
+  oauth2:
+    client:
+      access-token-validity-seconds: 1800
+      authorized-grant-types: password,refresh_token
+      client-id: acme
+      client-secret: secret
+      resource-ids: order,payment,provider
+      scope: read,write
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    password: authserver123
+    platform: mysql
+    url: jdbc:mysql://localhost/oauthdb?verifyServerCertificate=false&useSSL=false&requireSSL=false
+    username: authserver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  flyway:
+    enabled: true
+    baselineOnMigrate: true
+    baseline-version: 0
+    validate-on-migrate: false
